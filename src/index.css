@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Gruvbox Dark */
+:root {
+  --primary: #fabd2f;
+  --secondary: #fe8019;
+  --accent: #b8bb26;
+  --aqua: #8ec07c;
+  --base: #1d2021;
+  --surface: #282828;
+  --surface-alt: #3c3836;
+  --border: #504945;
+}
+
+@layer base {
+  body {
+    @apply bg-base text-textmain antialiased overflow-x-hidden selection:bg-primary/30;
+    font-family: 'IBM Plex Sans', sans-serif;
+    /* Faint dot grid, like an editor background */
+    background-image: radial-gradient(rgba(235, 219, 178, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-space;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface border border-gray-800 rounded-lg transition-all duration-300;
+    box-shadow: 4px 4px 0 0 #141617;
+  }
+
+  .glass-card:hover {
+    @apply border-primary/60;
+    box-shadow: 6px 6px 0 0 rgba(250, 189, 47, 0.25);
+  }
+
+  .text-gradient {
+    @apply text-primary font-black;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 rounded-md bg-primary text-[#1d2021] font-mono font-bold border-2 border-primary transition-all duration-200 hover:bg-secondary hover:border-secondary active:translate-y-0.5;
+    box-shadow: 4px 4px 0 0 #141617;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 rounded-md bg-transparent border-2 border-gray-800 text-textmain font-mono font-bold hover:border-primary hover:text-primary transition-all duration-200;
+  }
+
+  /* Blinking terminal cursor */
+  .term-cursor::after {
+    content: '88';
+    @apply text-primary ml-1;
+    animation: blink 1s steps(1) infinite;
+  }
+}
+
+/* Markdown-style section headings */
+section:not(#home) h2::before {
+  content: '# ';
+  color: var(--secondary);
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Custom Cursor */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  transition: transform 0.1s;
+}
+
+.cursor-outline {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--primary);
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  border-radius: 50%;
+  transition: all 0.3s ease-out;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Fluid animations managed via framer-motion or Canvas */
